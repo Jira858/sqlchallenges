@@ -1,0 +1,18 @@
+Find Child-Parent-Grand parent hierarchy and grand parent status
+
+create managed table hie (person string, parent string, status string);
+
+
+insert into table hie values ('A','X','ALIVE');
+insert into table hie values ('B','Y','DEAD');
+insert into table hie values ('X','X1','ALIVE');
+insert into table hie values ('Y','Y1','ALIVE');
+insert into table hie values ('X1','X2','ALIVE');
+insert into table hie values ('Y1','Y2','DEAD');
+
+select * from hie;
+
+select c.person as child, p.person as parent, g.person as gparent, g.status
+from hie c
+left join hie p on c.parent=p.person
+left join hie g on p.parent=g.person
